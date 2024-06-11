@@ -35,16 +35,16 @@ window.onload = function () {
         scrub: 1, //  스크롤 속도에 따라 애니메이션 속도가 조절됨
       },
     })
-    .to("h1", { opacity: 0, duration: 1 }, 0) // 0초에 h1의 투명도를 0으로 변경
-    .to("h2", { opacity: 0, duration: 1 }, 1) // 1초에 h2의 투명도를 0으로 변경
-    .to("h2 span", { color: "white", duration: 1 }, 0) // 1초에 h2의 span의 x값을 100으로 변경
+    .to(".visual h1", { opacity: 0, duration: 1 }, 0) // 0초에 h1의 투명도를 0으로 변경
+    .to(".visual h2", { opacity: 0, duration: 1 }, 1) // 1초에 h2의 투명도를 0으로 변경
+    .to(".visual h2 span", { color: "#e36840", duration: 1 }, 0) // 1초에 h2의 span의 x값을 100으로 변경
     .to(
-      ".logoWrap .y",
+      " .logoWrap .y",
       { x: -150, y: 350, rotate: 20, ease: "none", duration: 5 },
       0
     )
     .to(
-      ".logoWrap .o",
+      " .logoWrap .o",
       { x: -50, y: 250, rotate: -50, ease: "none", duration: 5 },
       0
     )
@@ -71,13 +71,13 @@ window.onload = function () {
     );
 
   // 메인텍스트 애니메이션
-  gsap.utils.toArray(".mainTextBox .title i").forEach((el) => {
+  gsap.utils.toArray(".titleBox *").forEach((el) => {
     gsap
       .timeline({
         scrollTrigger: {
           trigger: el,
-          start: "100% 100%",
-          end: "100% 100%",
+          start: "top bottom",
+          end: "top bottom",
           scrub: 1,
         },
       })
@@ -95,9 +95,9 @@ window.onload = function () {
       .timeline({
         scrollTrigger: {
           trigger: el,
-          start: "100% 100%",
-          end: "100% 100%",
-          scrub: 1,
+          start: "top bottom",
+          end: "top bottom",
+          scrub: 2,
         },
       })
       .fromTo(
@@ -108,37 +108,36 @@ window.onload = function () {
       );
   });
 
-  // con1 textAni 애니메이션
-  let textAniList = document.querySelectorAll(".con1 .textAni li");
-  let textAni = gsap.timeline({ repeat: -1 });
-  for (let i = 0; i < textAniList.length; i++) {
-    textAni.to(textAniList[i], 2, {
-      opacity: 1,
-      repeat: 1,
-      yoyo: true,
-      ease: "power4.out",
-      delay: 0,
-      x: 0,
-    });
-  }
-
+  // con1 imgBox
+  gsap.utils.toArray(".con1 .imgBox").forEach((el) => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: "bottom bottom",
+          end: "bottom top",
+          scrub: 2,
+        },
+      })
+      .fromTo(el, { rotate: "10deg" }, { rotate: "-10deg" });
+  });
   // con4 listBox 스크롤 애니메이션
   gsap.utils.toArray(".con4 .listBox .box").forEach((el, idx) => {
     gsap
       .timeline({
         scrollTrigger: {
           trigger: el,
-          start: "0% 20%",
-          end: "00% 0%",
+          start: "0% 0%",
+          end: "50% 0%",
           scrub: 1,
         },
       })
       .to(
         el,
         {
-          y: (idx % 2) * 20,
-          scale: 0.8 + idx * 0.1,
-          transform: "rotateX(-10deg) scale(0.9)",
+          y: idx * 20,
+          scale: 0.9 + idx * 0.05,
+          transform: "rotateX(-10deg)",
           transformOrigin: "top",
           filter: "brightness(0.7)",
         },
@@ -173,25 +172,74 @@ window.onload = function () {
   let listBox = document.querySelectorAll(".con5 .listBox li");
   let imgBox = document.querySelector(".con5 .imgBox");
   let img = document.querySelector(".con5 .imgBox img");
+  let imgText = document.querySelector(".con5 .imgBox p");
+  let progressBar = document.querySelector(".con5 .progressBar");
+
+  function addLongPressEvent(element, callback, duration = 1000) {
+    let timer;
+
+    element.addEventListener("mousedown", function () {
+      timer = setTimeout(callback, duration);
+      progressBar.style.width = "100%";
+    });
+
+    element.addEventListener("mouseup", function () {
+      clearTimeout(timer);
+      progressBar.style.width = "0%";
+    });
+
+    element.addEventListener("mouseleave", function () {
+      clearTimeout(timer);
+      progressBar.style.width = "0%";
+    });
+  }
 
   for (let i = 0; i < listBox.length; i++) {
+    addLongPressEvent(listBox[i], () => {
+      const url = listBox[i].getAttribute("data-link");
+      if (url) {
+        window.open(url, "_blank");
+      } else {
+        alert("URL이 설정되지 않았습니다.");
+      }
+    });
+
     listBox[i].addEventListener("mouseover", () => {
-      img.src = `images/img${i}.jpg`;
-      gsap.set(imgBox, { scale: 0, opacity: 0, duration: 0.3 }),
-        gsap.to(imgBox, { scale: 1, opacity: 1, duration: 0.3 });
+      document.body.style.cursor = "none";
+      const customValue = listBox[i].getAttribute("data-title");
+      const customDesc = listBox[i].getAttribute("data-desc");
+      imgText.textContent = customDesc;
+      img.src = `images/${customValue}.png`;
+      gsap.set(imgBox, { opacity: 0, duration: 0.3 }),
+        gsap.to(imgBox, { opacity: 1, duration: 0.3 });
     });
     listBox[i].addEventListener("mousemove", (e) => {
-      let x = e.pageX + 20;
-      let y = e.pageY - 20;
+      let x = e.pageX;
+      let y = e.pageY;
       imgBox.style.left = x + "px";
       imgBox.style.top = y + "px";
     });
     listBox[i].addEventListener("mouseout", () => {
-      gsap.to(imgBox, { scale: 0, opacity: 0, duration: 0.3 });
+      document.body.style.cursor = "auto";
+      gsap.to(imgBox, { opacity: 0, duration: 0.3 });
     });
   }
-  // footer 애니메이션
 
+  // con5 textAni 애니메이션
+  let textAniList = document.querySelectorAll(".con5 .textAni li");
+  let textAni = gsap.timeline({ repeat: -1 });
+  for (let i = 0; i < textAniList.length; i++) {
+    textAni.to(textAniList[i], 2, {
+      opacity: 1,
+      repeat: 1,
+      yoyo: true,
+      ease: "power4.out",
+      delay: 0,
+      x: 0,
+    });
+  }
+
+  // footer 애니메이션
   gsap
     .timeline({
       scrollTrigger: {
@@ -215,7 +263,7 @@ window.onload = function () {
     )
     .to(
       ".logoWrap .u",
-      { x: 0, y: 400, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
+      { x: 0, y: 200, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
       0
     )
     .to(
