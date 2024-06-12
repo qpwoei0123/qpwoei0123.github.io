@@ -151,16 +151,15 @@ section {
     display: flex;
     justify-content: center;
     gap: 10px;
+    object-fit: cover;
+    width: 100%;
     span {
       img {
         width: 100%;
       }
     }
-    .y {
-      z-index: 2;
-    }
-    .g {
-      z-index: 2;
+    .star {
+      display: none;
     }
   }
 }
@@ -170,6 +169,14 @@ section {
       margin-top: 50px;
       font-size: 4rem;
     }
+    .logoWrap {
+      display: grid;
+      grid-template-rows: auto auto; /* 2개의 행을 자동 크기로 설정 */
+      grid-template-columns: repeat(3, 1fr); /* 3개의 열을 동일한 비율로 설정 */
+      .star {
+        display: block;
+      }
+    }
   }
 }
 /* con1 */
@@ -177,6 +184,7 @@ section {
   padding: 60px 0;
   background-color: rgba(55, 55, 55, 0.4);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 
   .textBox {
     display: flex;
@@ -389,6 +397,7 @@ footer {
       padding: 50px;
       background: rgba(55, 55, 55, 0.4);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: 10px;
       display: flex;
       .textBox {
@@ -404,31 +413,31 @@ footer {
         flex-grow: 1;
         padding: 50px;
 
-        a {
+        div {
           transition: all 0.3s;
           margin: 10px 0;
+          padding: 10px;
         }
-        a:hover {
+        div:hover {
           color: #e36840;
         }
-        a:before {
+        div:before {
           content: "";
           width: 10px;
           height: 10px;
           border-radius: 100%;
           position: absolute;
           top: 10px;
-          right: 0px;
+          right: 10px;
           background: #e36840;
           transition: all 0.3s;
         }
-        a:hover:before {
+        div:hover:before {
           top: 50%;
           right: 50%;
           opacity: 0;
         }
-        a:active {
-          padding: 10px;
+        div:active {
           margin: 0 10px;
           border-radius: 10px;
           background: rgba(0, 0, 0, 0.1);
