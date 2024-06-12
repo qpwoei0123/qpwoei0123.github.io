@@ -249,7 +249,6 @@ window.onload = function () {
         scrub: 3,
       },
     })
-
     .to(".logoWrap", { top: "20%", ease: "none", duration: 5 }, 0)
     .to(
       ".logoWrap .y",
@@ -281,6 +280,21 @@ window.onload = function () {
         scale: 1.2,
         duration: 5,
       },
+      0
+    )
+    .to(
+      "footer .btnBox .ri-mail-line",
+      { rotate: "20deg", y: 20, x: -10, duration: 5 },
+      0
+    )
+    .to(
+      "footer .btnBox .ri-github-fill",
+      { rotate: "-20deg", y: -10, duration: 5 },
+      0
+    )
+    .to(
+      "footer .btnBox .ri-notion-fill",
+      { rotate: "50deg", y: 5, x: 20, duration: 5 },
       0
     );
 
