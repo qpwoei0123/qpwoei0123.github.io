@@ -244,37 +244,37 @@ window.onload = function () {
     .timeline({
       scrollTrigger: {
         trigger: "footer",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 3,
+        start: "top 50%",
+        end: "top 50%",
+        scrub: 5,
       },
     })
     .to(".logoWrap", { top: "20%", ease: "none", duration: 5 }, 0)
     .to(
       ".logoWrap .y",
-      { x: 0, y: 350, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
+      { x: 0, y: 50, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
       0
     )
     .to(
       ".logoWrap .o",
-      { x: 0, y: 250, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
+      { x: 0, y: 150, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
       0
     )
     .to(
       ".logoWrap .u",
-      { x: 0, y: 200, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
+      { x: 0, y: 100, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
       0
     )
     .to(
       ".logoWrap .n",
-      { x: 0, y: 300, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
+      { x: 0, y: 50, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
       0
     )
     .to(
       ".logoWrap .g",
       {
         x: 0,
-        y: 400,
+        y: 120,
         rotate: 0,
         ease: "none",
         scale: 1.2,
@@ -283,17 +283,22 @@ window.onload = function () {
       0
     )
     .to(
-      "footer .btnBox .ri-mail-line",
-      { rotate: "20deg", y: 20, x: -10, duration: 5 },
+      "footer .btnBox a:nth-of-type(1)",
+      {
+        rotate: "20deg",
+        y: 20,
+        x: -20,
+        duration: 5,
+      },
       0
     )
     .to(
-      "footer .btnBox .ri-github-fill",
-      { rotate: "-20deg", y: -10, duration: 5 },
+      "footer .btnBox a:nth-of-type(2)",
+      { rotate: "-30deg", y: -10, duration: 5 },
       0
     )
     .to(
-      "footer .btnBox .ri-notion-fill",
+      "footer .btnBox a:nth-of-type(3)",
       { rotate: "50deg", y: 5, x: 20, duration: 5 },
       0
     );
