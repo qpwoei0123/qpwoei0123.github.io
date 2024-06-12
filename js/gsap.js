@@ -68,6 +68,17 @@ window.onload = function () {
         duration: 5,
       },
       0
+    )
+    .to(
+      ".logoWrap .star",
+      {
+        x: 50,
+        y: 300,
+        rotate: -150,
+        ease: "none",
+        duration: 5,
+      },
+      0
     );
 
   // 메인텍스트 애니메이션
@@ -283,7 +294,7 @@ window.onload = function () {
       0
     )
     .to(
-      "footer .btnBox a:nth-of-type(1)",
+      "footer .btnBox div:nth-of-type(1)",
       {
         rotate: "20deg",
         y: 20,
@@ -293,12 +304,12 @@ window.onload = function () {
       0
     )
     .to(
-      "footer .btnBox a:nth-of-type(2)",
+      "footer .btnBox div:nth-of-type(2)",
       { rotate: "-30deg", y: -10, duration: 5 },
       0
     )
     .to(
-      "footer .btnBox a:nth-of-type(3)",
+      "footer .btnBox div:nth-of-type(3)",
       { rotate: "50deg", y: 5, x: 20, duration: 5 },
       0
     );
