@@ -119,12 +119,16 @@ Object.keys(projects).forEach((key) => {
 const footerLinks = {
   Github: { icon: "ri-github-fill", link: "https://github.com/qpwoei0123" },
   Gmail: {
-    icon: "ri-mail-line",
+    icon: "ri-google-fill",
     link: "https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=qpwoei01234@gmail.com",
   },
   Notion: {
     icon: "ri-notion-fill",
     link: "https://qpwoei0123.notion.site/1aa3453374c44410810e4793011d0f52?pvs=4",
+  },
+  Resume: {
+    icon: "ri-file-user-line",
+    link: "https://qpwoei0123.notion.site/f0b738c4514c49cb8721dc8cbf671995",
   },
 };
 

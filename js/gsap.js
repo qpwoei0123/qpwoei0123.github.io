@@ -40,28 +40,28 @@ window.onload = function () {
     .to(".visual h2 span", { color: "#e36840", duration: 1 }, 0) // 1초에 h2의 span의 x값을 100으로 변경
     .to(
       " .logoWrap .y",
-      { x: -150, y: 350, rotate: 20, ease: "none", duration: 5 },
+      { x: -70, y: 350, rotate: 20, ease: "none", duration: 3 },
       0
     )
     .to(
       " .logoWrap .o",
-      { x: -50, y: 250, rotate: -50, ease: "none", duration: 5 },
+      { x: -50, y: 250, rotate: -50, ease: "none", duration: 3 },
       0
     )
     .to(
       ".logoWrap .u",
-      { x: 0, y: 400, rotate: -5, ease: "none", duration: 5 },
+      { x: 0, y: 400, rotate: -5, ease: "none", duration: 3 },
       0
     )
     .to(
       ".logoWrap .n",
-      { x: 100, y: 300, rotate: -10, ease: "none", duration: 5 },
+      { x: 40, y: 300, rotate: -10, ease: "none", duration: 5 },
       0
     )
     .to(
       ".logoWrap .g",
       {
-        x: 150,
+        x: 90,
         y: 450,
         rotate: 150,
         ease: "none",
@@ -255,62 +255,61 @@ window.onload = function () {
     .timeline({
       scrollTrigger: {
         trigger: "footer",
-        start: "top 50%",
+        start: "top bottom",
         end: "top 50%",
-        scrub: 5,
+        scrub: 1,
       },
     })
-    .to(".logoWrap", { top: "20%", ease: "none", duration: 5 }, 0)
-    .to(
-      ".logoWrap .y",
-      { x: 0, y: 50, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
-      0
-    )
-    .to(
-      ".logoWrap .o",
-      { x: 0, y: 150, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
-      0
-    )
-    .to(
-      ".logoWrap .u",
-      { x: 0, y: 100, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
-      0
-    )
-    .to(
-      ".logoWrap .n",
-      { x: 0, y: 50, rotate: 0, ease: "none", scale: 1.2, duration: 5 },
-      0
-    )
+    .to(".logoWrap", { top: "20%", ease: "none", duration: 3 }, 0)
+    .to(".logoWrap .y", { x: 0, y: 0, rotate: 0, ease: "none", duration: 3 }, 0)
+    .to(".logoWrap .o", { x: 0, y: 0, rotate: 0, ease: "none", duration: 3 }, 0)
+    .to(".logoWrap .u", { x: 0, y: 0, rotate: 0, ease: "none", duration: 3 }, 0)
+    .to(".logoWrap .n", { x: 0, y: 0, rotate: 0, ease: "none", duration: 3 }, 0)
     .to(
       ".logoWrap .g",
       {
         x: 0,
-        y: 120,
+        y: 0,
         rotate: 0,
         ease: "none",
-        scale: 1.2,
-        duration: 5,
+        duration: 3,
       },
       0
-    )
+    );
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: "footer .btnBox",
+        start: "top bottom",
+        end: "bottom bottom",
+        scrub: 1,
+        markers: true,
+      },
+    })
     .to(
       "footer .btnBox div:nth-of-type(1)",
       {
         rotate: "20deg",
-        y: 20,
+        y: 6,
         x: -20,
-        duration: 5,
+        duration: 3,
       },
       0
     )
     .to(
       "footer .btnBox div:nth-of-type(2)",
-      { rotate: "-30deg", y: -10, duration: 5 },
+      { rotate: "-10deg", y: -20, x: 8, duration: 3 },
       0
     )
     .to(
       "footer .btnBox div:nth-of-type(3)",
-      { rotate: "50deg", y: 5, x: 20, duration: 5 },
+      { rotate: "-16deg", y: 30, x: -6, duration: 3 },
+      0
+    )
+    .to(
+      "footer .btnBox div:nth-of-type(4)",
+      { rotate: "33deg", y: 15, x: 3, duration: 3 },
       0
     );
 

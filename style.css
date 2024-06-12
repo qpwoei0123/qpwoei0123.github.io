@@ -5,6 +5,8 @@
 * {
   margin: 0;
   padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 a {
   color: inherit;
@@ -217,6 +219,9 @@ section {
           a:hover {
             transform: translateX(10px);
           }
+          a:focus {
+            transform: translateX(30px);
+          }
         }
         .icon {
           font-size: 2rem;
@@ -406,7 +411,8 @@ footer {
         gap: 10px;
       }
       .btnBox {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
         justify-content: center;
         align-items: center;
         font-size: 5rem;
@@ -415,13 +421,12 @@ footer {
 
         div {
           transition: all 0.3s;
-          margin: 10px 0;
-          padding: 10px;
         }
         div:hover {
           color: #e36840;
         }
         div:before {
+          opacity: 1;
           content: "";
           width: 10px;
           height: 10px;
@@ -430,6 +435,7 @@ footer {
           top: 10px;
           right: 10px;
           background: #e36840;
+          transform: translate(50%, -50%);
           transition: all 0.3s;
         }
         div:hover:before {
@@ -437,11 +443,16 @@ footer {
           right: 50%;
           opacity: 0;
         }
+        div:active:before {
+          top: 45%;
+          right: 45%;
+          opacity: 1;
+          transform: scale(10);
+          z-index: -1;
+        }
         div:active {
-          margin: 0 10px;
-          border-radius: 10px;
-          background: rgba(0, 0, 0, 0.1);
-          transition: all 1s;
+          color: #fff;
+          z-index: 999;
         }
       }
     }
