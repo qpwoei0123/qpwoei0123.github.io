@@ -98,7 +98,6 @@ const projects = {
 };
 
 const projectList = document.getElementById("project-preview-list");
-
 Object.keys(projects).forEach((key) => {
   const project = projects[key];
   const li = document.createElement("li");
@@ -115,4 +114,32 @@ Object.keys(projects).forEach((key) => {
   li.appendChild(h3);
   li.appendChild(pYear);
   projectList.appendChild(li);
+});
+
+const footerLinks = {
+  Github: { icon: "ri-github-fill", link: "https://github.com/qpwoei0123" },
+  Gmail: {
+    icon: "ri-mail-line",
+    link: "https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=qpwoei01234@gmail.com",
+  },
+  Notion: {
+    icon: "ri-notion-fill",
+    link: "https://qpwoei0123.notion.site/1aa3453374c44410810e4793011d0f52?pvs=4",
+  },
+};
+
+const footerIconBox = document.querySelector("footer .btnBox");
+
+Object.keys(footerLinks).forEach((key) => {
+  const footerLink = footerLinks[key];
+  const i = document.createElement("i");
+  i.className = footerLink.icon;
+
+  i.addEventListener("click", () => {
+    window.open(footerLink.link, "_blank");
+  });
+
+  const div = document.createElement("div");
+  div.appendChild(i);
+  footerIconBox.appendChild(div);
 });
