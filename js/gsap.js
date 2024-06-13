@@ -32,7 +32,7 @@ window.onload = function () {
         trigger: ".visual",
         start: "100% 100%", // trigger와 viewport의 어느 지점에서 시작할지
         end: "100% 0%", // trigger와 viewport의 어느 지점에서 끝낼지
-        scrub: 1, //  스크롤 속도에 따라 애니메이션 속도가 조절됨
+        scrub: 3, //  스크롤 속도에 따라 애니메이션 속도가 조절됨
       },
     })
     .to(".visual h1", { opacity: 0, duration: 1 }, 0) // 0초에 h1의 투명도를 0으로 변경
@@ -40,7 +40,7 @@ window.onload = function () {
     .to(".visual h2 span", { color: "#e36840", duration: 1 }, 0) // 1초에 h2의 span의 x값을 100으로 변경
     .to(
       " .logoWrap .y",
-      { x: -70, y: 350, rotate: 20, ease: "none", duration: 3 },
+      { x: 70, y: 350, rotate: 20, ease: "none", duration: 3 },
       0
     )
     .to(
@@ -55,28 +55,28 @@ window.onload = function () {
     )
     .to(
       ".logoWrap .n",
-      { x: 40, y: 300, rotate: -10, ease: "none", duration: 5 },
+      { x: 40, y: 200, rotate: -40, ease: "none", duration: 3 },
       0
     )
     .to(
       ".logoWrap .g",
       {
-        x: 90,
+        x: -90,
         y: 450,
         rotate: 150,
         ease: "none",
-        duration: 5,
+        duration: 3,
       },
       0
     )
     .to(
       ".logoWrap .star",
       {
-        x: 50,
-        y: 300,
-        rotate: -150,
+        x: -50,
+        y: 200,
+        rotate: -350,
         ease: "none",
-        duration: 5,
+        duration: 3,
       },
       0
     );
@@ -221,8 +221,8 @@ window.onload = function () {
       const customDesc = listBox[i].getAttribute("data-desc");
       imgText.textContent = customDesc;
       img.src = `images/${customValue}.png`;
-      gsap.set(imgBox, { opacity: 0, duration: 0.3 }),
-        gsap.to(imgBox, { opacity: 1, duration: 0.3 });
+      gsap.set(imgBox, { scale: 0, opacity: 0, duration: 0.5 }),
+        gsap.to(imgBox, { scale: 1, opacity: 1, duration: 0.5 });
     });
     listBox[i].addEventListener("mousemove", (e) => {
       let x = e.pageX;
@@ -232,7 +232,7 @@ window.onload = function () {
     });
     listBox[i].addEventListener("mouseout", () => {
       document.body.style.cursor = "auto";
-      gsap.to(imgBox, { opacity: 0, duration: 0.3 });
+      gsap.to(imgBox, { scale: 0, opacity: 0, duration: 0.5 });
     });
   }
 
@@ -256,21 +256,37 @@ window.onload = function () {
       scrollTrigger: {
         trigger: "footer",
         start: "top bottom",
-        end: "top 50%",
-        scrub: 1,
+        end: "top top",
+        scrub: 3,
       },
     })
     .to(".logoWrap", { top: "20%", ease: "none", duration: 3 }, 0)
-    .to(".logoWrap .y", { x: 0, y: 0, rotate: 0, ease: "none", duration: 3 }, 0)
-    .to(".logoWrap .o", { x: 0, y: 0, rotate: 0, ease: "none", duration: 3 }, 0)
-    .to(".logoWrap .u", { x: 0, y: 0, rotate: 0, ease: "none", duration: 3 }, 0)
-    .to(".logoWrap .n", { x: 0, y: 0, rotate: 0, ease: "none", duration: 3 }, 0)
+    .to(
+      ".logoWrap .y",
+      { x: 100, y: 100, rotate: 20, ease: "none", duration: 3 },
+      0
+    )
+    .to(
+      ".logoWrap .o",
+      { x: 80, y: 120, rotate: -50, ease: "none", duration: 3 },
+      0
+    )
+    .to(
+      ".logoWrap .u",
+      { x: 10, y: 80, rotate: 70, ease: "none", duration: 3 },
+      0
+    )
+    .to(
+      ".logoWrap .n",
+      { x: -30, y: 70, rotate: -30, ease: "none", duration: 3 },
+      0
+    )
     .to(
       ".logoWrap .g",
       {
-        x: 0,
-        y: 0,
-        rotate: 0,
+        x: -80,
+        y: 80,
+        rotate: 100,
         ease: "none",
         duration: 3,
       },
@@ -284,7 +300,6 @@ window.onload = function () {
         start: "top bottom",
         end: "bottom bottom",
         scrub: 1,
-        markers: true,
       },
     })
     .to(
