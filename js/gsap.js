@@ -180,6 +180,18 @@ window.onload = function () {
       );
   });
   // con5 listBox li 호버 이미지 애니메이션
+  gsap.utils.toArray(".con5 .listBox li").forEach((el) => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: "bottom 30%",
+          end: "bottom top",
+          scrub: 3,
+        },
+      })
+      .fromTo(el, { y: 100 }, { y: 0, opacity: 0.5, scale: 1 });
+  });
   let listBox = document.querySelectorAll(".con5 .listBox li");
   let imgBox = document.querySelector(".con5 .imgBox");
   let img = document.querySelector(".con5 .imgBox img");
@@ -314,17 +326,17 @@ window.onload = function () {
     )
     .to(
       "footer .btnBox div:nth-of-type(2)",
-      { rotate: "-10deg", y: -20, x: 8, duration: 3 },
+      { rotate: "-25deg", y: -20, x: 8, duration: 3 },
       0
     )
     .to(
       "footer .btnBox div:nth-of-type(3)",
-      { rotate: "-16deg", y: 30, x: -6, duration: 3 },
+      { rotate: "-20deg", y: 30, x: -6, duration: 3 },
       0
     )
     .to(
       "footer .btnBox div:nth-of-type(4)",
-      { rotate: "33deg", y: 15, x: 3, duration: 3 },
+      { rotate: "45deg", y: -25, x: -15, duration: 3 },
       0
     );
 
