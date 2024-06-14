@@ -329,12 +329,14 @@ section {
     padding: 50px;
   }
   .listBox {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
     li {
       display: flex;
       justify-content: space-between;
       color: #fff;
-      border-bottom: 1px solid #fff;
-      padding-top: 30px;
+      border-bottom: 5px solid #fff;
       transition: all 0.3s;
       h3 {
         pointer-events: none;
