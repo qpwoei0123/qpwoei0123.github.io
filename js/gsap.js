@@ -195,6 +195,7 @@ window.onload = function () {
   let listBox = document.querySelectorAll(".con5 .listBox li");
   let imgBox = document.querySelector(".con5 .imgBox");
   let img = document.querySelector(".con5 .imgBox img");
+  let spinner = document.querySelector(".con5 .imgBox .spinner");
   let imgText = document.querySelector(".con5 .imgBox p");
   let progressBar = document.querySelector(".con5 .progressBar");
 
@@ -231,8 +232,14 @@ window.onload = function () {
       document.body.style.cursor = "none";
       const customValue = listBox[i].getAttribute("data-title");
       const customDesc = listBox[i].getAttribute("data-desc");
+      spinner.style.display = "block";
+      img.style.display = "none";
       imgText.textContent = customDesc;
       img.src = `images/${customValue}.png`;
+      img.onload = () => {
+        spinner.style.display = "none";
+        img.style.display = "block";
+      };
       gsap.set(imgBox, { scale: 0, opacity: 0, duration: 0.5 }),
         gsap.to(imgBox, { scale: 1, opacity: 1, duration: 0.5 });
     });
