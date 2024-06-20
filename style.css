@@ -28,7 +28,8 @@ img {
   vertical-align: middle;
 }
 
-body {
+body,
+html {
   font-family: "pretendard", sans-serif;
   font-size: 16px;
   letter-spacing: -0.01rem;
@@ -268,7 +269,6 @@ section {
 /* con4 */
 .con4 {
   margin-bottom: 0;
-
   .listBox {
     margin-top: 100px;
     perspective: 999px;
@@ -325,7 +325,6 @@ section {
 
 /* con5 */
 .con5 {
-  overflow: hidden;
   .inner {
     padding: 50px;
   }
