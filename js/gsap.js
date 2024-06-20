@@ -32,7 +32,7 @@ window.onload = function () {
         trigger: ".visual",
         start: "100% 100%", // trigger와 viewport의 어느 지점에서 시작할지
         end: "100% 0%", // trigger와 viewport의 어느 지점에서 끝낼지
-        scrub: 3, //  스크롤 속도에 따라 애니메이션 속도가 조절됨
+        scrub: 1, //  스크롤 속도에 따라 애니메이션 속도가 조절됨
       },
     })
     .to(".visual h1", { opacity: 0, duration: 1 }, 0) // 0초에 h1의 투명도를 0으로 변경
@@ -40,22 +40,22 @@ window.onload = function () {
     .to(".visual h2 span", { color: "#e36840", duration: 1 }, 0) // 1초에 h2의 span의 x값을 100으로 변경
     .to(
       " .logoWrap .y",
-      { x: 70, y: 350, rotate: 20, ease: "none", duration: 3 },
+      { x: 70, y: 350, rotate: 20, ease: "none", duration: 2 },
       0
     )
     .to(
       " .logoWrap .o",
-      { x: -50, y: 250, rotate: -50, ease: "none", duration: 3 },
+      { x: -50, y: 250, rotate: -50, ease: "none", duration: 2 },
       0
     )
     .to(
       ".logoWrap .u",
-      { x: 0, y: 400, rotate: -5, ease: "none", duration: 3 },
+      { x: 0, y: 400, rotate: -5, ease: "none", duration: 2 },
       0
     )
     .to(
       ".logoWrap .n",
-      { x: 40, y: 200, rotate: -40, ease: "none", duration: 3 },
+      { x: 40, y: 200, rotate: -40, ease: "none", duration: 2 },
       0
     )
     .to(
@@ -65,7 +65,7 @@ window.onload = function () {
         y: 450,
         rotate: 150,
         ease: "none",
-        duration: 3,
+        duration: 2,
       },
       0
     )
@@ -76,7 +76,7 @@ window.onload = function () {
         y: 200,
         rotate: -350,
         ease: "none",
-        duration: 3,
+        duration: 2,
       },
       0
     );
@@ -187,7 +187,7 @@ window.onload = function () {
           trigger: el,
           start: "bottom 30%",
           end: "bottom top",
-          scrub: 3,
+          scrub: 1,
         },
       })
       .fromTo(el, { y: 100 }, { y: 0, opacity: 0.5, scale: 1 });
@@ -276,28 +276,28 @@ window.onload = function () {
         trigger: "footer",
         start: "top bottom",
         end: "top top",
-        scrub: 3,
+        scrub: 1,
       },
     })
-    .to(".logoWrap", { top: "20%", ease: "none", duration: 3 }, 0)
+    .to(".logoWrap", { top: "20%", ease: "none", duration: 2 }, 0)
     .to(
       ".logoWrap .y",
-      { x: 100, y: 100, rotate: 20, ease: "none", duration: 3 },
+      { x: 100, y: 100, rotate: 20, ease: "none", duration: 2 },
       0
     )
     .to(
       ".logoWrap .o",
-      { x: 80, y: 120, rotate: -50, ease: "none", duration: 3 },
+      { x: 80, y: 120, rotate: -50, ease: "none", duration: 2 },
       0
     )
     .to(
       ".logoWrap .u",
-      { x: 10, y: 80, rotate: 70, ease: "none", duration: 3 },
+      { x: 10, y: 80, rotate: 70, ease: "none", duration: 2 },
       0
     )
     .to(
       ".logoWrap .n",
-      { x: -30, y: 70, rotate: -30, ease: "none", duration: 3 },
+      { x: -30, y: 70, rotate: -30, ease: "none", duration: 2 },
       0
     )
     .to(
@@ -307,7 +307,7 @@ window.onload = function () {
         y: 80,
         rotate: 100,
         ease: "none",
-        duration: 3,
+        duration: 2,
       },
       0
     );
