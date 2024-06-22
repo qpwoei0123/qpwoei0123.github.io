@@ -195,7 +195,7 @@ window.onload = function () {
   let listBox = document.querySelectorAll(".con5 .listBox li");
   let imgBox = document.querySelector(".con5 .imgBox");
   let img = document.querySelector(".con5 .imgBox img");
-  let spinner = document.querySelector(".con5 .imgBox .spinner");
+  let spinner = document.querySelector(".con5 i.spinner");
   let imgText = document.querySelector(".con5 .imgBox p");
   let progressBar = document.querySelector(".con5 .progressBar");
 
@@ -232,26 +232,37 @@ window.onload = function () {
       document.body.style.cursor = "none";
       const customValue = listBox[i].getAttribute("data-title");
       const customDesc = listBox[i].getAttribute("data-desc");
-      spinner.style.display = "block";
-      img.style.display = "none";
+      imgBox.style.opacity = 0;
+      spinner.style.opacity = 1;
       imgText.textContent = customDesc;
       img.src = `images/${customValue}.png`;
       img.onload = () => {
-        spinner.style.display = "none";
-        img.style.display = "block";
+        imgBox.style.opacity = 1;
+        spinner.style.opacity = 0;
       };
-      gsap.set(imgBox, { scale: 0, opacity: 0, duration: 0.5 }),
-        gsap.to(imgBox, { scale: 1, opacity: 1, duration: 0.5 });
+      img.onerror = () => {
+        img.src = `images/1.png`;
+        imgText.textContent = "이미지를 불러오지 못했습니다.";
+        imgBox.style.opacity = 1;
+        spinner.style.opacity = 0;
+      };
+
+      gsap.set(imgBox, { opacity: 0, duration: 0.3 }),
+        gsap.to(imgBox, { opacity: 1, duration: 0.3 });
     });
     listBox[i].addEventListener("mousemove", (e) => {
       let x = e.pageX;
       let y = e.pageY;
       imgBox.style.left = x + "px";
       imgBox.style.top = y + "px";
+      spinner.style.left = x + "px";
+      spinner.style.top = y + "px";
     });
+
     listBox[i].addEventListener("mouseout", () => {
       document.body.style.cursor = "auto";
-      gsap.to(imgBox, { scale: 0, opacity: 0, duration: 0.5 });
+      gsap.to(imgBox, { opacity: 0, duration: 0.3 });
+      spinner.style.opacity = 0;
     });
   }
 
