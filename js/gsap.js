@@ -180,91 +180,152 @@ window.onload = function () {
       );
   });
   // con5 listBox li 호버 이미지 애니메이션
-  gsap.utils.toArray(".con5 .listBox li").forEach((el) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: "bottom 30%",
-          end: "bottom top",
-          scrub: 1,
-        },
-      })
-      .fromTo(el, { y: 100 }, { y: 0, opacity: 0.5, scale: 1 });
-  });
-  let listBox = document.querySelectorAll(".con5 .listBox li");
+  // gsap.utils.toArray(".con5 .listBox li").forEach((el) => {
+  //   gsap
+  //     .timeline({
+  //       scrollTrigger: {
+  //         trigger: el,
+  //         start: "bottom 30%",
+  //         end: "bottom top",
+  //         scrub: 1,
+  //       },
+  //     })
+  //     .fromTo(el, { y: 100 }, { y: 0, opacity: 0.5, scale: 1 });
+  // });
+  let con5 = document.querySelector(".con5");
+  let listBox = document.querySelector(".con5 .listBox");
   let imgBox = document.querySelector(".con5 .imgBox");
   let img = document.querySelector(".con5 .imgBox img");
-  let spinner = document.querySelector(".con5 i.spinner");
-  let imgText = document.querySelector(".con5 .imgBox p");
-  let progressBar = document.querySelector(".con5 .progressBar");
+  let cursor = document.querySelector(".con5 .cursor");
+  let cursorText = document.querySelector(".con5 .cursor p");
 
-  function addLongPressEvent(element, callback, duration = 1000) {
-    let timer;
+  img.src = "images/Magnet.png";
 
-    element.addEventListener("mousedown", function () {
-      timer = setTimeout(callback, duration);
-      progressBar.style.width = "100%";
+  con5.addEventListener("mouseenter", (e) => {
+    document.body.style.cursor = "none";
+    cursor.style.left = e.pageX + "px";
+    cursor.style.top = e.pageY + "px";
+    gsap.to(con5, {
+      borderTop: "3px solid #fff",
+      borderBottom: "3px solid #fff",
+      duration: 0.3,
+      ease: "power2.out",
     });
+    gsap.to(cursor, { scale: 1, duration: 0.3, ease: "power2.out" });
+  });
 
-    element.addEventListener("mouseup", function () {
-      clearTimeout(timer);
-      progressBar.style.width = "0%";
+  con5.addEventListener("mouseleave", () => {
+    document.body.style.cursor = "auto";
+    gsap.to(con5, {
+      borderTop: "3px solid #e36840",
+      borderBottom: "3px solid #e36840",
+      duration: 0.3,
+      ease: "power2.out",
     });
+    gsap.to(cursor, { scale: 0, duration: 0.3, ease: "power2.out" });
+  });
 
-    element.addEventListener("mouseleave", function () {
-      clearTimeout(timer);
-      progressBar.style.width = "0%";
-    });
-  }
+  con5.addEventListener("mousemove", (e) => {
+    let x = e.pageX;
+    let y = e.pageY;
+    gsap.to(cursor, { left: x, top: y, delay: 0.03 });
+    gsap.to(imgBox, { left: x, top: y, ease: "back.out(2)", delay: 0.1 });
+  });
 
-  for (let i = 0; i < listBox.length; i++) {
-    addLongPressEvent(listBox[i], () => {
-      const url = listBox[i].getAttribute("data-link");
-      if (url) {
-        window.open(url, "_blank");
-      } else {
-        alert("URL이 설정되지 않았습니다.");
-      }
+  listBox.addEventListener("mouseenter", () => {
+    gsap.to(imgBox, {
+      scale: 1,
+      duration: 0.3,
+      ease: "expo.out",
     });
+    gsap.to(cursor, {
+      backgroundColor: "rgba(55, 55, 55, 0.5)",
+      scale: 3,
+      duration: 0.3,
+    });
+    gsap.to(cursorText, { opacity: 1 });
+  });
 
-    listBox[i].addEventListener("mouseover", () => {
-      document.body.style.cursor = "none";
-      const customValue = listBox[i].getAttribute("data-title");
-      const customDesc = listBox[i].getAttribute("data-desc");
-      imgBox.style.opacity = 0;
-      spinner.style.opacity = 1;
-      imgText.textContent = customDesc;
-      img.src = `images/${customValue}.png`;
-      img.onload = () => {
-        imgBox.style.opacity = 1;
-        spinner.style.opacity = 0;
-      };
-      img.onerror = () => {
-        img.src = `images/1.png`;
-        imgText.textContent = "이미지를 불러오지 못했습니다.";
-        imgBox.style.opacity = 1;
-        spinner.style.opacity = 0;
-      };
+  listBox.addEventListener("mouseleave", () => {
+    gsap.to(imgBox, {
+      scale: 0,
+      duration: 0.3,
+      ease: "expo.out",
+    });
+    gsap.to(cursor, {
+      backgroundColor: "#e36840",
+      scale: 1,
+      duration: 0.3,
+    });
+    gsap.to(cursorText, { opacity: 0 });
+  });
 
-      gsap.set(imgBox, { opacity: 0, duration: 0.3 }),
-        gsap.to(imgBox, { opacity: 1, duration: 0.3 });
-    });
-    listBox[i].addEventListener("mousemove", (e) => {
-      let x = e.pageX;
-      let y = e.pageY;
-      imgBox.style.left = x + "px";
-      imgBox.style.top = y + "px";
-      spinner.style.left = x + "px";
-      spinner.style.top = y + "px";
-    });
+  // function addLongPressEvent(element, callback, duration = 1000) {
+  //   let timer;
 
-    listBox[i].addEventListener("mouseout", () => {
-      document.body.style.cursor = "auto";
-      gsap.to(imgBox, { opacity: 0, duration: 0.3 });
-      spinner.style.opacity = 0;
-    });
-  }
+  //   element.addEventListener("mousedown", function () {
+  //     timer = setTimeout(callback, duration);
+  //     progressBar.style.width = "100%";
+  //   });
+
+  //   element.addEventListener("mouseup", function () {
+  //     clearTimeout(timer);
+  //     progressBar.style.width = "0%";
+  //   });
+
+  //   element.addEventListener("mouseleave", function () {
+  //     clearTimeout(timer);
+  //     progressBar.style.width = "0%";
+  //   });
+  // }
+
+  // for (let i = 0; i < listBox.length; i++) {
+  //   addLongPressEvent(listBox[i], () => {
+  //     const url = listBox[i].getAttribute("data-link");
+  //     if (url) {
+  //       window.open(url, "_blank");
+  //     } else {
+  //       alert("URL이 설정되지 않았습니다.");
+  //     }
+  //   });
+
+  //   listBox[i].addEventListener("mouseover", () => {
+  //     document.body.style.cursor = "none";
+  //     const customValue = listBox[i].getAttribute("data-title");
+  //     const customDesc = listBox[i].getAttribute("data-desc");
+  //     imgBox.style.opacity = 0;
+  //     spinner.style.opacity = 1;
+  //     imgText.textContent = customDesc;
+  //     img.src = `images/${customValue}.png`;
+  //     img.onload = () => {
+  //       imgBox.style.opacity = 1;
+  //       spinner.style.opacity = 0;
+  //     };
+  //     img.onerror = () => {
+  //       img.src = `images/1.png`;
+  //       imgText.textContent = "이미지를 불러오지 못했습니다.";
+  //       imgBox.style.opacity = 1;
+  //       spinner.style.opacity = 0;
+  //     };
+
+  //     gsap.set(imgBox, { opacity: 0, duration: 0.3 }),
+  //       gsap.to(imgBox, { opacity: 1, duration: 0.3 });
+  //   });
+  //   listBox[i].addEventListener("mousemove", (e) => {
+  //     let x = e.pageX;
+  //     let y = e.pageY;
+  //     imgBox.style.left = x + "px";
+  //     imgBox.style.top = y + "px";
+  //     spinner.style.left = x + "px";
+  //     spinner.style.top = y + "px";
+  //   });
+
+  //   listBox[i].addEventListener("mouseout", () => {
+  //     document.body.style.cursor = "auto";
+  //     gsap.to(imgBox, { opacity: 0, duration: 0.3 });
+  //     spinner.style.opacity = 0;
+  //   });
+  // }
 
   // con5 textAni 애니메이션
   let textAniList = document.querySelectorAll(".con5 .textAni li");
