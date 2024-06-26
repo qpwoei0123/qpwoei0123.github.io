@@ -97,6 +97,9 @@ const projects = {
   },
 };
 
+const imgBox = document.querySelector(".con5 .imgBox");
+const imgWarp = document.querySelector(".con5 .imgBox .imgWarp");
+
 const projectList = document.getElementById("project-preview-list");
 Object.keys(projects).forEach((key) => {
   const project = projects[key];
@@ -114,6 +117,10 @@ Object.keys(projects).forEach((key) => {
   li.appendChild(h3);
   li.appendChild(pYear);
   projectList.appendChild(li);
+
+  const img = document.createElement("img");
+  img.src = `./images/${project.title}.png`;
+  imgWarp.appendChild(img);
 });
 
 const footerLinks = {

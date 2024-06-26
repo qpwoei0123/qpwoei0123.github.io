@@ -195,11 +195,9 @@ window.onload = function () {
   let con5 = document.querySelector(".con5");
   let listBox = document.querySelector(".con5 .listBox");
   let imgBox = document.querySelector(".con5 .imgBox");
-  let img = document.querySelector(".con5 .imgBox img");
+  const imgWarp = document.querySelector(".con5 .imgBox .imgWarp");
   let cursor = document.querySelector(".con5 .cursor");
   let cursorText = document.querySelector(".con5 .cursor p");
-
-  img.src = "images/Magnet.png";
 
   con5.addEventListener("mouseenter", (e) => {
     document.body.style.cursor = "none";
@@ -230,6 +228,15 @@ window.onload = function () {
     let y = e.pageY;
     gsap.to(cursor, { left: x, top: y, delay: 0.03 });
     gsap.to(imgBox, { left: x, top: y, ease: "back.out(2)", delay: 0.1 });
+  });
+
+  listBox.addEventListener("mousemove", (e) => {
+    if (e.target && e.target.nodeName === "LI") {
+      const listItems = Array.from(listBox.children); // 모든 li 요소를 배열로 만듭니다.
+      const index = listItems.indexOf(e.target); // 현재 li 요소의 인덱스를 찾습니다.
+      console.log("이 항목의 순서는: " + index);
+      gsap.to(imgWarp, { transform: `translateX(-${index * 500}px)` });
+    }
   });
 
   listBox.addEventListener("mouseenter", () => {
