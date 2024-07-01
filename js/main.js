@@ -104,9 +104,11 @@ const projectList = document.getElementById("project-preview-list");
 Object.keys(projects).forEach((key) => {
   const project = projects[key];
   const li = document.createElement("li");
-  li.setAttribute("data-title", project.title);
-  li.setAttribute("data-link", project.link);
-  li.setAttribute("data-desc", project.desc);
+  // li.setAttribute("data-title", project.title);
+  // li.setAttribute("data-link", project.link);
+  // li.setAttribute("data-desc", project.desc);
+  const header = document.createElement("div");
+  header.className = "header";
 
   const h3 = document.createElement("h3");
   h3.textContent = project.title;
@@ -114,8 +116,13 @@ Object.keys(projects).forEach((key) => {
   const pYear = document.createElement("p");
   pYear.textContent = project.created;
 
-  li.appendChild(h3);
-  li.appendChild(pYear);
+  const body = document.createElement("div");
+  body.className = "body";
+
+  header.appendChild(h3);
+  header.appendChild(pYear);
+  li.appendChild(header);
+  li.appendChild(body);
   projectList.appendChild(li);
 
   const img = document.createElement("img");

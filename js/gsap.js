@@ -179,174 +179,84 @@ window.onload = function () {
         0
       );
   });
-  // con5 listBox li 호버 이미지 애니메이션
-  // gsap.utils.toArray(".con5 .listBox li").forEach((el) => {
-  //   gsap
-  //     .timeline({
-  //       scrollTrigger: {
-  //         trigger: el,
-  //         start: "bottom 30%",
-  //         end: "bottom top",
-  //         scrub: 1,
-  //       },
-  //     })
-  //     .fromTo(el, { y: 100 }, { y: 0, opacity: 0.5, scale: 1 });
-  // });
-  let con5 = document.querySelector(".con5");
-  let listBox = document.querySelector(".con5 .listBox");
-  let imgBox = document.querySelector(".con5 .imgBox");
+
+  // con5 섹션 시작
+  const con5 = document.querySelector(".con5");
+  const listBox = document.querySelector(".con5 .listBox");
+  const imgBox = document.querySelector(".con5 .imgBox");
   const imgWarp = document.querySelector(".con5 .imgBox .imgWarp");
-  let cursor = document.querySelector(".con5 .cursor");
-  let cursorText = document.querySelector(".con5 .cursor p");
+  const cursor = document.querySelector(".con5 .cursor");
+  const cursorText = document.querySelector(".con5 .cursor p");
+  const li = document.querySelectorAll(".con5 .listBox li");
 
+  // 커서 스타일 변경 함수
+  const updateCursorStyle = (scale, cursorStyle, borderColor) => {
+    document.body.style.cursor = cursorStyle;
+    gsap.to(con5, {
+      borderTop: `3px solid ${borderColor}`,
+      borderBottom: `3px solid ${borderColor}`,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+    gsap.to(cursor, { scale, duration: 0.3, ease: "power2.out" });
+  };
+  // con5 이벤트
   con5.addEventListener("mouseenter", (e) => {
-    document.body.style.cursor = "none";
-    cursor.style.left = e.pageX + "px";
-    cursor.style.top = e.pageY + "px";
-    gsap.to(con5, {
-      borderTop: "3px solid #fff",
-      borderBottom: "3px solid #fff",
-      duration: 0.3,
-      ease: "power2.out",
-    });
-    gsap.to(cursor, { scale: 1, duration: 0.3, ease: "power2.out" });
+    console.log("con5 mouseenter");
+    updateCursorStyle(1, "none", "#fff");
+    cursor.style.left = `${e.pageX}px`;
+    cursor.style.top = `${e.pageY}px`;
   });
-
   con5.addEventListener("mouseleave", () => {
-    document.body.style.cursor = "auto";
-    gsap.to(con5, {
-      borderTop: "3px solid #e36840",
-      borderBottom: "3px solid #e36840",
-      duration: 0.3,
-      ease: "power2.out",
-    });
-    gsap.to(cursor, { scale: 0, duration: 0.3, ease: "power2.out" });
+    console.log("con5 mouseleave");
+    updateCursorStyle(0, "auto", "#e36840");
   });
-
   con5.addEventListener("mousemove", (e) => {
-    let x = e.pageX;
-    let y = e.pageY;
-    gsap.to(cursor, { left: x, top: y, delay: 0.03 });
-    gsap.to(imgBox, { left: x, top: y, ease: "back.out(2)", delay: 0.1 });
+    console.log("con5 mousemove");
+    const { pageX: x, pageY: y } = e;
+    gsap.to([cursor, imgBox], {
+      duration: 0.2,
+      ease: "back.out(2)",
+      stagger: 0.1,
+      left: x,
+      top: y,
+    });
   });
 
+  // 커서 이미지와 관련된 함수
+  const updateCursorImage = (isHidden) => {
+    gsap.to(imgBox, {
+      scale: isHidden ? 0 : 1,
+      duration: 0.3,
+      ease: "expo.out",
+    });
+    gsap.to(cursor, {
+      backgroundColor: isHidden ? "#e36840" : "rgba(55, 55, 55, 0.5)",
+      scale: isHidden ? 1 : 3,
+      duration: 0.3,
+    });
+    gsap.to(cursorText, { opacity: isHidden ? 0 : 1 });
+  };
+
+  // li 클릭 이벤트
+  li.forEach((el) => {
+    el.addEventListener("click", () => {
+      el.classList.toggle("on");
+      updateCursorImage(el.classList.contains("on"));
+    });
+  });
+
+  // listBox 이벤트
   listBox.addEventListener("mousemove", (e) => {
     if (e.target && e.target.nodeName === "LI") {
-      const listItems = Array.from(listBox.children); // 모든 li 요소를 배열로 만듭니다.
-      const index = listItems.indexOf(e.target); // 현재 li 요소의 인덱스를 찾습니다.
-      console.log("이 항목의 순서는: " + index);
-      gsap.to(imgWarp, { transform: `translateX(-${index * 500}px)` });
+      const index = Array.from(listBox.children).indexOf(e.target);
+      updateCursorImage(e.target.classList.contains("on"));
+      if (!e.target.classList.contains("on")) {
+        gsap.to(imgWarp, { transform: `translateX(-${index * 500}px)` });
+      }
     }
   });
-
-  listBox.addEventListener("mouseenter", () => {
-    gsap.to(imgBox, {
-      scale: 1,
-      duration: 0.3,
-      ease: "expo.out",
-    });
-    gsap.to(cursor, {
-      backgroundColor: "rgba(55, 55, 55, 0.5)",
-      scale: 3,
-      duration: 0.3,
-    });
-    gsap.to(cursorText, { opacity: 1 });
-  });
-
-  listBox.addEventListener("mouseleave", () => {
-    gsap.to(imgBox, {
-      scale: 0,
-      duration: 0.3,
-      ease: "expo.out",
-    });
-    gsap.to(cursor, {
-      backgroundColor: "#e36840",
-      scale: 1,
-      duration: 0.3,
-    });
-    gsap.to(cursorText, { opacity: 0 });
-  });
-
-  // function addLongPressEvent(element, callback, duration = 1000) {
-  //   let timer;
-
-  //   element.addEventListener("mousedown", function () {
-  //     timer = setTimeout(callback, duration);
-  //     progressBar.style.width = "100%";
-  //   });
-
-  //   element.addEventListener("mouseup", function () {
-  //     clearTimeout(timer);
-  //     progressBar.style.width = "0%";
-  //   });
-
-  //   element.addEventListener("mouseleave", function () {
-  //     clearTimeout(timer);
-  //     progressBar.style.width = "0%";
-  //   });
-  // }
-
-  // for (let i = 0; i < listBox.length; i++) {
-  //   addLongPressEvent(listBox[i], () => {
-  //     const url = listBox[i].getAttribute("data-link");
-  //     if (url) {
-  //       window.open(url, "_blank");
-  //     } else {
-  //       alert("URL이 설정되지 않았습니다.");
-  //     }
-  //   });
-
-  //   listBox[i].addEventListener("mouseover", () => {
-  //     document.body.style.cursor = "none";
-  //     const customValue = listBox[i].getAttribute("data-title");
-  //     const customDesc = listBox[i].getAttribute("data-desc");
-  //     imgBox.style.opacity = 0;
-  //     spinner.style.opacity = 1;
-  //     imgText.textContent = customDesc;
-  //     img.src = `images/${customValue}.png`;
-  //     img.onload = () => {
-  //       imgBox.style.opacity = 1;
-  //       spinner.style.opacity = 0;
-  //     };
-  //     img.onerror = () => {
-  //       img.src = `images/1.png`;
-  //       imgText.textContent = "이미지를 불러오지 못했습니다.";
-  //       imgBox.style.opacity = 1;
-  //       spinner.style.opacity = 0;
-  //     };
-
-  //     gsap.set(imgBox, { opacity: 0, duration: 0.3 }),
-  //       gsap.to(imgBox, { opacity: 1, duration: 0.3 });
-  //   });
-  //   listBox[i].addEventListener("mousemove", (e) => {
-  //     let x = e.pageX;
-  //     let y = e.pageY;
-  //     imgBox.style.left = x + "px";
-  //     imgBox.style.top = y + "px";
-  //     spinner.style.left = x + "px";
-  //     spinner.style.top = y + "px";
-  //   });
-
-  //   listBox[i].addEventListener("mouseout", () => {
-  //     document.body.style.cursor = "auto";
-  //     gsap.to(imgBox, { opacity: 0, duration: 0.3 });
-  //     spinner.style.opacity = 0;
-  //   });
-  // }
-
-  // con5 textAni 애니메이션
-  let textAniList = document.querySelectorAll(".con5 .textAni li");
-  let textAni = gsap.timeline({ repeat: -1 });
-  for (let i = 0; i < textAniList.length; i++) {
-    textAni.to(textAniList[i], 2, {
-      opacity: 1,
-      repeat: 1,
-      yoyo: true,
-      ease: "power4.out",
-      delay: 0,
-      x: 0,
-    });
-  }
+  listBox.addEventListener("mouseleave", () => updateCursorImage(true));
 
   // footer 애니메이션
   gsap
