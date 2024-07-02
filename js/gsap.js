@@ -186,8 +186,60 @@ window.onload = function () {
   const imgBox = document.querySelector(".con5 .imgBox");
   const imgWarp = document.querySelector(".con5 .imgBox .imgWarp");
   const cursor = document.querySelector(".con5 .cursor");
-  const cursorText = document.querySelector(".con5 .cursor p");
+  const cursorText = document.querySelector(".con5 .cursor i");
   const li = document.querySelectorAll(".con5 .listBox li");
+  const bodyImage = document.querySelectorAll(".con5 .body img");
+
+  bodyImage.forEach((el) => {
+    // el.addEventListener("mouseenter", () => {
+    //   gsap.to(cursor, {
+    //     backgroundColor: "rgba(999,999, 999, .8)",
+    //     scale: 3,
+    //     duration: 0.3,
+    //   });
+    //   gsap.to(cursorText, { opacity: 1 });
+    //   cursorText.innerHTML = "Go!";
+    //   cursorText.style.color = "black";
+    //   cursor.style.borderRadius = "0px";
+    // });
+    // el.addEventListener("mouseleave", () => {
+    //   gsap.to(cursor, {
+    //     backgroundColor: "#e36840",
+    //     scale: 1,
+    //     duration: 0.3,
+    //   });
+    //   gsap.to(cursorText, { opacity: 0 });
+    //   cursorText.innerHTML = "Click";
+    //   cursorText.style.color = "white";
+    //   cursor.style.borderRadius = "100%";
+    // });
+
+    el.addEventListener("mouseenter", () => {
+      gsap.to(cursor, {
+        backgroundColor: "rgba(999,999, 999, .8)",
+        scale: 3,
+        duration: 0.3,
+      });
+
+      gsap.to(cursorText, { opacity: 1 });
+      cursorText.classList.add("ri-external-link-line");
+      cursorText.innerHTML = "";
+      cursorText.style.color = "black";
+      cursor.style.borderRadius = "1px";
+    });
+    el.addEventListener("mouseleave", () => {
+      gsap.to(cursor, {
+        backgroundColor: "#e36840",
+        scale: 1,
+        duration: 0.3,
+      });
+      gsap.to(cursorText, { opacity: 0 });
+      cursorText.classList.remove("ri-external-link-line");
+      cursorText.innerHTML = "Click";
+      cursorText.style.color = "white";
+      cursor.style.borderRadius = "100%";
+    });
+  });
 
   // 커서 스타일 변경 함수
   const updateCursorStyle = (scale, cursorStyle, borderColor) => {

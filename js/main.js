@@ -19,7 +19,7 @@ const projects = {
   },
   AgoraBoard: {
     title: "AgoraBoard",
-    desc: "질문과 답변을 주고받는 AgoraBoard",
+    desc: "질문과 답변을 주고받는",
     link: "https://qpwoei0123.github.io/my-agora-states/",
     created: "2023",
   },
@@ -31,19 +31,19 @@ const projects = {
   },
   CozyState: {
     title: "CozyState",
-    desc: "멍때리기 좋은 미디어 서비스 CozyState",
+    desc: "멍때리기 좋은 미디어 서비스",
     link: "https://www.cozystates.com/",
     created: "2023",
   },
   SnapWeather: {
     title: "SnapWeather",
-    desc: "나의 동네 날씨를 한눈에 보여주는 SnapWeather",
+    desc: "나의 동네 날씨를 한눈에 보여주는",
     link: "https://weather-app-qpwoei0123s-projects.vercel.app/",
     created: "2023",
   },
   Magnet: {
     title: "Magnet",
-    desc: "멘토멘티 매칭 서비스 Magnet",
+    desc: "멘토멘티 매칭 서비스",
     link: "https://project-magnet.site/",
     created: "2024",
   },
@@ -104,9 +104,6 @@ const projectList = document.getElementById("project-preview-list");
 Object.keys(projects).forEach((key) => {
   const project = projects[key];
   const li = document.createElement("li");
-  // li.setAttribute("data-title", project.title);
-  // li.setAttribute("data-link", project.link);
-  // li.setAttribute("data-desc", project.desc);
   const header = document.createElement("div");
   header.className = "header";
 
@@ -119,15 +116,35 @@ Object.keys(projects).forEach((key) => {
   const body = document.createElement("div");
   body.className = "body";
 
+  const bodyImage = document.createElement("img");
+  bodyImage.src = `./images/${project.title}.png`;
+  bodyImage.addEventListener("click", () => {
+    window.open(project.link, "_blank");
+  });
+
+  const descriptionBox = document.createElement("div");
+  const title = document.createElement("h3");
+  const description = document.createElement("p");
+  const link = document.createElement("button");
+
+  title.textContent = project.title;
+  description.textContent = project.desc;
+  link.textContent = "바로가기";
+
+  descriptionBox.appendChild(title);
+  descriptionBox.appendChild(description);
+
   header.appendChild(h3);
   header.appendChild(pYear);
+  body.appendChild(bodyImage);
+  body.appendChild(descriptionBox);
   li.appendChild(header);
   li.appendChild(body);
   projectList.appendChild(li);
 
-  const img = document.createElement("img");
-  img.src = `./images/${project.title}.png`;
-  imgWarp.appendChild(img);
+  const cursorImg = document.createElement("img");
+  cursorImg.src = `./images/${project.title}.png`;
+  imgWarp.appendChild(cursorImg);
 });
 
 const footerLinks = {
