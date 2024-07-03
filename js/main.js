@@ -117,7 +117,7 @@ Object.keys(projects).forEach((key) => {
   body.className = "body";
 
   const bodyImage = document.createElement("img");
-  bodyImage.src = `./images/${project.title}.png`;
+  bodyImage.src = `./images/gif/${project.title}.gif`;
   bodyImage.addEventListener("click", () => {
     window.open(project.link, "_blank");
   });
