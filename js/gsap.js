@@ -190,30 +190,18 @@ window.onload = function () {
   const li = document.querySelectorAll(".con5 .listBox li");
   const bodyImage = document.querySelectorAll(".con5 .body img");
 
-  bodyImage.forEach((el) => {
-    // el.addEventListener("mouseenter", () => {
-    //   gsap.to(cursor, {
-    //     backgroundColor: "rgba(999,999, 999, .8)",
-    //     scale: 3,
-    //     duration: 0.3,
-    //   });
-    //   gsap.to(cursorText, { opacity: 1 });
-    //   cursorText.innerHTML = "Go!";
-    //   cursorText.style.color = "black";
-    //   cursor.style.borderRadius = "0px";
-    // });
-    // el.addEventListener("mouseleave", () => {
-    //   gsap.to(cursor, {
-    //     backgroundColor: "#e36840",
-    //     scale: 1,
-    //     duration: 0.3,
-    //   });
-    //   gsap.to(cursorText, { opacity: 0 });
-    //   cursorText.innerHTML = "Click";
-    //   cursorText.style.color = "white";
-    //   cursor.style.borderRadius = "100%";
-    // });
+  function throttle(func, delay) {
+    let lastTime = 0;
+    return function (...args) {
+      const now = new Date().getTime();
+      if (now - lastTime >= delay) {
+        lastTime = now;
+        func.apply(this, args);
+      }
+    };
+  }
 
+  bodyImage.forEach((el) => {
     el.addEventListener("mouseenter", () => {
       gsap.to(cursor, {
         backgroundColor: "rgba(999,999, 999, .8)",
@@ -263,17 +251,20 @@ window.onload = function () {
     console.log("con5 mouseleave");
     updateCursorStyle(0, "auto", "#e36840");
   });
-  con5.addEventListener("mousemove", (e) => {
-    console.log("con5 mousemove");
-    const { pageX: x, pageY: y } = e;
-    gsap.to([cursor, imgBox], {
-      duration: 0.2,
-      ease: "back.out(2)",
-      stagger: 0.1,
-      left: x,
-      top: y,
-    });
-  });
+  con5.addEventListener(
+    "mousemove",
+    throttle((e) => {
+      console.log("con5 mousemove");
+      const { pageX: x, pageY: y } = e;
+      gsap.to([cursor, imgBox], {
+        duration: 0.2,
+        ease: "back.out(2)",
+        stagger: 0.1,
+        left: x,
+        top: y,
+      });
+    }, 50)
+  );
 
   // 커서 이미지와 관련된 함수
   const updateCursorImage = (isHidden) => {
@@ -298,8 +289,8 @@ window.onload = function () {
     });
   });
 
-  // listBox 이벤트
-  listBox.addEventListener("mousemove", (e) => {
+  const listBoxMousemoveFunc = throttle((e) => {
+    console.log("listBox mousemove");
     if (e.target && e.target.nodeName === "LI") {
       const index = Array.from(listBox.children).indexOf(e.target);
       updateCursorImage(e.target.classList.contains("on"));
@@ -307,7 +298,9 @@ window.onload = function () {
         gsap.to(imgWarp, { transform: `translateX(-${index * 500}px)` });
       }
     }
-  });
+  }, 100);
+  // listBox 이벤트
+  listBox.addEventListener("mousemove", (e) => listBoxMousemoveFunc(e));
   listBox.addEventListener("mouseleave", () => updateCursorImage(true));
 
   // footer 애니메이션
