@@ -1,149 +1,139 @@
 window.onload = function () {
-  // loading 애니메이션
+  // 일정 시간 후 클래스 추가 함수
+  const applyClassAfterDelay = (element, className, delay) => {
+    setTimeout(() => {
+      element.classList.add(className);
+    }, delay);
+  };
+
+  // 일정 시간 후 여러 요소에 클래스 추가 함수
+  const handleElementClass = (elements, className, delay) => {
+    setTimeout(() => {
+      elements.forEach((el) => {
+        el.classList.add(className);
+      });
+    }, delay);
+  };
+
+  // ScrollTrigger 설정 함수
+  const setupScrollTrigger = (trigger, start, end, scrub, animations) => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: trigger,
+          start: start,
+          end: end,
+          scrub: scrub,
+        },
+      })
+      .add(animations);
+  };
+
+  // 로딩 애니메이션
   let loading = document.querySelector(".loading");
   let rotate = document.querySelectorAll(".rotate");
   let opacity = document.querySelectorAll(".opacity");
 
+  // 로딩 클래스 추가
   loading.classList.add("scene1");
-  setTimeout(() => {
-    loading.classList.add("scene2");
-  }, 1000);
+  applyClassAfterDelay(loading, "scene2", 1000);
   setTimeout(() => {
     loading.classList.remove("scene1", "scene2");
     loading.classList.add("displayNone");
   }, 2000);
-  setTimeout(() => {
-    rotate.forEach((el) => {
-      el.classList.add("on");
-    });
-  }, 2000);
-  setTimeout(() => {
-    opacity.forEach((el) => {
-      el.classList.add("on");
-    });
-  }, 2000);
+  handleElementClass(rotate, "on", 2000);
+  handleElementClass(opacity, "on", 2000);
 
-  gsap.registerPlugin(ScrollTrigger); // ScrollTrigger 사용 준비
+  gsap.registerPlugin(ScrollTrigger);
 
   // 비주얼 섹션 애니메이션
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: ".visual",
-        start: "100% 100%", // trigger와 viewport의 어느 지점에서 시작할지
-        end: "100% 0%", // trigger와 viewport의 어느 지점에서 끝낼지
-        scrub: 1, //  스크롤 속도에 따라 애니메이션 속도가 조절됨
-      },
-    })
-    .to(".visual h1", { opacity: 0, duration: 1 }, 0) // 0초에 h1의 투명도를 0으로 변경
-    .to(".visual h2", { opacity: 0, duration: 1 }, 1) // 1초에 h2의 투명도를 0으로 변경
-    .to(".visual h2 span", { color: "#e36840", duration: 1 }, 0) // 1초에 h2의 span의 x값을 100으로 변경
-    .to(
+  setupScrollTrigger(".visual", "100% 100%", "100% 0%", 1, [
+    gsap.to(".visual h1", { opacity: 0, duration: 1 }, 0), // h1 투명도 변화
+    gsap.to(".visual h2", { opacity: 0, duration: 1 }, 1), // h2 투명도 변화
+    gsap.to(".visual h2 span", { color: "#e36840", duration: 1 }, 0), // h2 span 색상 변화
+    gsap.to(
       " .logoWrap .y",
       { x: 70, y: 350, rotate: 20, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       " .logoWrap .o",
       { x: -50, y: 250, rotate: -50, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       ".logoWrap .u",
       { x: 0, y: 400, rotate: -5, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       ".logoWrap .n",
       { x: 40, y: 200, rotate: -40, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       ".logoWrap .g",
-      {
-        x: -90,
-        y: 450,
-        rotate: 150,
-        ease: "none",
-        duration: 2,
-      },
+      { x: -90, y: 450, rotate: 150, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       ".logoWrap .star",
-      {
-        x: -50,
-        y: 200,
-        rotate: -350,
-        ease: "none",
-        duration: 2,
-      },
+      { x: -50, y: 200, rotate: -350, ease: "none", duration: 2 },
       0
-    );
+    ),
+  ]);
 
   // 메인텍스트 애니메이션
   gsap.utils.toArray(".titleBox *").forEach((el) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",
-          end: "top bottom",
-          scrub: 1,
-        },
-      })
-      .fromTo(
+    setupScrollTrigger(
+      el,
+      "top bottom",
+      "top bottom",
+      1,
+      gsap.fromTo(
         el,
         { overflow: "hidden", y: 150 },
         { overflow: "hidden", y: 0 },
         0
-      );
+      )
+    );
   });
 
   // 서브텍스트 애니메이션
   gsap.utils.toArray(".subText p").forEach((el) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",
-          end: "top bottom",
-          scrub: 2,
-        },
-      })
-      .fromTo(
+    setupScrollTrigger(
+      el,
+      "top bottom",
+      "top bottom",
+      2,
+      gsap.fromTo(
         el,
         { opacity: 0, y: 100 },
         { opacity: 1, y: 0, ease: "none", duration: 1 },
         0
-      );
+      )
+    );
   });
 
-  // con1 imgBox
+  // con1 imgBox 애니메이션
   gsap.utils.toArray(".con1 .imgBox").forEach((el) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: "bottom bottom",
-          end: "bottom top",
-          scrub: 2,
-        },
-      })
-      .fromTo(el, { rotate: "10deg" }, { rotate: "-10deg" });
+    setupScrollTrigger(
+      el,
+      "bottom bottom",
+      "bottom top",
+      2,
+      gsap.fromTo(el, { rotate: "10deg" }, { rotate: "-10deg" })
+    );
   });
-  // con4 listBox 스크롤 애니메이션
+
+  // con4 listBox 애니메이션
   gsap.utils.toArray(".con4 .listBox .box").forEach((el, idx) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: "0% 0%",
-          end: "50% 0%",
-          scrub: 1,
-        },
-      })
-      .to(
+    setupScrollTrigger(
+      el,
+      "0% 0%",
+      "50% 0%",
+      1,
+      gsap.to(
         el,
         {
           y: idx * 20,
@@ -153,21 +143,18 @@ window.onload = function () {
           filter: "brightness(0.7)",
         },
         0
-      );
+      )
+    );
   });
 
-  // con3 listBox 스크롤 애니메이션
+  // con3 listBox 애니메이션
   gsap.utils.toArray(".con3 .listBox li").forEach((el, idx) => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",
-          end: "50% bottom",
-          scrub: 1,
-        },
-      })
-      .fromTo(
+    setupScrollTrigger(
+      el,
+      "top bottom",
+      "50% bottom",
+      1,
+      gsap.fromTo(
         el,
         { opacity: 0, rotationY: "45deg" },
         {
@@ -177,9 +164,9 @@ window.onload = function () {
           delay: (idx % 3) * 1,
         },
         0
-      );
+      )
+    );
   });
-
   // con5 섹션 시작
   const con5 = document.querySelector(".con5");
   const listBox = document.querySelector(".con5 .listBox");
@@ -190,7 +177,7 @@ window.onload = function () {
   const li = document.querySelectorAll(".con5 .listBox li");
   const bodyImage = document.querySelectorAll(".con5 .body img");
 
-  function throttle(func, delay) {
+  const throttle = (func, delay) => {
     let lastTime = 0;
     return function (...args) {
       const now = new Date().getTime();
@@ -199,7 +186,7 @@ window.onload = function () {
         func.apply(this, args);
       }
     };
-  }
+  };
 
   bodyImage.forEach((el) => {
     el.addEventListener("mouseenter", () => {
@@ -229,7 +216,6 @@ window.onload = function () {
     });
   });
 
-  // 커서 스타일 변경 함수
   const updateCursorStyle = (scale, cursorStyle, borderColor) => {
     document.body.style.cursor = cursorStyle;
     gsap.to(con5, {
@@ -240,17 +226,19 @@ window.onload = function () {
     });
     gsap.to(cursor, { scale, duration: 0.3, ease: "power2.out" });
   };
-  // con5 이벤트
+
   con5.addEventListener("mouseenter", (e) => {
     console.log("con5 mouseenter");
     updateCursorStyle(1, "none", "#fff");
     cursor.style.left = `${e.pageX}px`;
     cursor.style.top = `${e.pageY}px`;
   });
+
   con5.addEventListener("mouseleave", () => {
     console.log("con5 mouseleave");
     updateCursorStyle(0, "auto", "#e36840");
   });
+
   con5.addEventListener(
     "mousemove",
     throttle((e) => {
@@ -266,7 +254,6 @@ window.onload = function () {
     }, 50)
   );
 
-  // 커서 이미지와 관련된 함수
   const updateCursorImage = (isHidden) => {
     gsap.to(imgBox, {
       scale: isHidden ? 0 : 1,
@@ -281,7 +268,6 @@ window.onload = function () {
     gsap.to(cursorText, { opacity: isHidden ? 0 : 1 });
   };
 
-  // li 클릭 이벤트
   li.forEach((el) => {
     el.addEventListener("click", () => {
       el.classList.toggle("on");
@@ -299,96 +285,68 @@ window.onload = function () {
       }
     }
   }, 100);
-  // listBox 이벤트
+
   listBox.addEventListener("mousemove", (e) => listBoxMousemoveFunc(e));
   listBox.addEventListener("mouseleave", () => updateCursorImage(true));
 
   // footer 애니메이션
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: "footer",
-        start: "top bottom",
-        end: "top top",
-        scrub: 1,
-      },
-    })
-    .to(".logoWrap", { top: "20%", ease: "none", duration: 2 }, 0)
-    .to(
+  setupScrollTrigger("footer", "top bottom", "top top", 1, [
+    gsap.to(".logoWrap", { top: "20%", ease: "none", duration: 2 }, 0),
+    gsap.to(
       ".logoWrap .y",
       { x: 100, y: 100, rotate: 20, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       ".logoWrap .o",
       { x: 80, y: 120, rotate: -50, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       ".logoWrap .u",
       { x: 10, y: 80, rotate: 70, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       ".logoWrap .n",
       { x: -30, y: 70, rotate: -30, ease: "none", duration: 2 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       ".logoWrap .g",
-      {
-        x: -80,
-        y: 80,
-        rotate: 100,
-        ease: "none",
-        duration: 2,
-      },
+      { x: -80, y: 80, rotate: 100, ease: "none", duration: 2 },
       0
-    );
+    ),
+  ]);
 
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: "footer .btnBox",
-        start: "top bottom",
-        end: "bottom bottom",
-        scrub: 1,
-      },
-    })
-    .to(
+  setupScrollTrigger("footer .btnBox", "top bottom", "bottom bottom", 1, [
+    gsap.to(
       "footer .btnBox div:nth-of-type(1)",
-      {
-        rotate: "20deg",
-        y: 6,
-        x: -20,
-        duration: 3,
-      },
+      { rotate: "20deg", y: 6, x: -20, duration: 3 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       "footer .btnBox div:nth-of-type(2)",
       { rotate: "-25deg", y: -20, x: 8, duration: 3 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       "footer .btnBox div:nth-of-type(3)",
       { rotate: "-20deg", y: 30, x: -6, duration: 3 },
       0
-    )
-    .to(
+    ),
+    gsap.to(
       "footer .btnBox div:nth-of-type(4)",
       { rotate: "45deg", y: -25, x: -15, duration: 3 },
       0
-    );
+    ),
+  ]);
 
-  // 페이지 로드 시에 바로 스크롤바를 숨깁니다.
   document.body.classList.add("hide-scrollbar");
-
-  // 2.5초 후에 스크롤바를 다시 보여줍니다.
-  setTimeout(function () {
+  setTimeout(() => {
     document.body.classList.remove("hide-scrollbar");
   }, 3000);
-  // 페이지 이동 시 스크롤바를 맨 위로 이동시킵니다.
+
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);
   };
