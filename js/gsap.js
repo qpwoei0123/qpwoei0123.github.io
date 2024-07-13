@@ -338,13 +338,4 @@ window.onload = function () {
       0
     ),
   ]);
-
-  document.body.classList.add("hide-scrollbar");
-  setTimeout(() => {
-    document.body.classList.remove("hide-scrollbar");
-  }, 3000);
-
-  window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
-  };
 };
