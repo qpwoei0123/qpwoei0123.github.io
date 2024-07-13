@@ -235,14 +235,12 @@ window.onload = function () {
   });
 
   con5.addEventListener("mouseleave", () => {
-    console.log("con5 mouseleave");
     updateCursorStyle(0, "auto", "#e36840");
   });
 
   con5.addEventListener(
     "mousemove",
     throttle((e) => {
-      console.log("con5 mousemove");
       const { pageX: x, pageY: y } = e;
       gsap.to([cursor, imgBox], {
         duration: 0.2,
@@ -276,7 +274,6 @@ window.onload = function () {
   });
 
   const listBoxMousemoveFunc = throttle((e) => {
-    console.log("listBox mousemove");
     if (e.target && e.target.nodeName === "LI") {
       const index = Array.from(listBox.children).indexOf(e.target);
       updateCursorImage(e.target.classList.contains("on"));
@@ -284,7 +281,7 @@ window.onload = function () {
         gsap.to(imgWarp, { transform: `translateX(-${index * 500}px)` });
       }
     }
-  }, 100);
+  }, 10);
 
   listBox.addEventListener("mousemove", (e) => listBoxMousemoveFunc(e));
   listBox.addEventListener("mouseleave", () => updateCursorImage(true));
