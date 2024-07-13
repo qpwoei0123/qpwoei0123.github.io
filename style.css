@@ -33,7 +33,7 @@ html {
   font-family: "pretendard", sans-serif;
   font-size: 16px;
   letter-spacing: -0.01rem;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .wrap {
   position: relative;
@@ -652,12 +652,6 @@ footer {
 }
 
 /* media */
-body.hide-scrollbar::-webkit-scrollbar {
-  width: 0;
-}
-body.hide-scrollbar {
-  overflow: hidden;
-}
 ::-webkit-scrollbar-thumb {
   background-color: #ff764a; /* 스크롤바 색상 */
 }
