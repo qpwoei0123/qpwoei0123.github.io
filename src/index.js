@@ -1,5 +1,8 @@
 import { projects, footerLinks } from "./data.js";
 
+import "./scrollControl.js";
+import "./gsap.js";
+
 /**
  * HTML 요소를 생성하는 함수
  *
