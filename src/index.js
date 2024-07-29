@@ -3,6 +3,8 @@ import { projects, footerLinks } from "./data.js";
 import "./scrollControl.js";
 import "./gsap.js";
 
+import "./styles.css";
+
 /**
  * HTML 요소를 생성하는 함수
  *
