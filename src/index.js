@@ -49,6 +49,7 @@ const createBody = ({ title, desc, link }) => {
 
   const bodyImage = createElement("img");
   bodyImage.src = `./images/gif/${title}.webp`;
+  bodyImage.loading = "lazy"; // 여기서 레이지 로딩 적용
   bodyImage.addEventListener("click", () => {
     window.open(link, "_blank");
   });
@@ -83,6 +84,7 @@ const createProjectElement = (project) => {
  */
 const createCursorImage = (title) => {
   const cursorImg = createElement("img");
+  cursorImg.loading = "lazy"; // 여기서 레이지 로딩 적용
   cursorImg.src = `./images/${title}.webp`;
   return cursorImg;
 };
