@@ -48,7 +48,7 @@ const createBody = ({ title, desc, link }) => {
   const body = createElement("div", "body");
 
   const bodyImage = createElement("img");
-  bodyImage.src = `./images/gif/${title}.gif`;
+  bodyImage.src = `./images/gif/${title}.webp`;
   bodyImage.addEventListener("click", () => {
     window.open(link, "_blank");
   });
@@ -83,7 +83,7 @@ const createProjectElement = (project) => {
  */
 const createCursorImage = (title) => {
   const cursorImg = createElement("img");
-  cursorImg.src = `./images/${title}.png`;
+  cursorImg.src = `./images/${title}.webp`;
   return cursorImg;
 };
 
