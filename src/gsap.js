@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener("load", () => {
   // 일정 시간 후 클래스 추가 함수
   const applyClassAfterDelay = (element, className, delay) => {
     setTimeout(() => {
@@ -74,11 +74,6 @@ window.onload = function () {
     gsap.to(
       ".logoWrap .g",
       { x: -90, y: 450, rotate: 150, ease: "none", duration: 2 },
-      0
-    ),
-    gsap.to(
-      ".logoWrap .star",
-      { x: -50, y: 200, rotate: -350, ease: "none", duration: 2 },
       0
     ),
   ]);
@@ -338,4 +333,4 @@ window.onload = function () {
       0
     ),
   ]);
-};
+});
