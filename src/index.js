@@ -50,6 +50,7 @@ const createBody = ({ title, desc, link }) => {
   const bodyImage = createElement("img");
   bodyImage.src = `./images/gif/${title}.webp`;
   bodyImage.loading = "lazy"; // 여기서 레이지 로딩 적용
+
   bodyImage.addEventListener("click", () => {
     window.open(link, "_blank");
   });
@@ -139,3 +140,10 @@ const footerIconBox = document.querySelector("footer .btnBox");
 // 프로젝트와 푸터 링크 렌더링
 renderProjects(projects, projectList, imgWarp);
 renderFooterLinks(footerLinks, footerIconBox);
+
+const con5List = document.querySelectorAll(".con5 #project-preview-list li");
+con5List.forEach((el) => {
+  el.addEventListener("mouseenter", () => {
+    el.querySelector("img").loading = "eager";
+  });
+});
